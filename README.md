@@ -1,6 +1,6 @@
 # 🚀 Express + Sequelize MySQL API
 
-A simple RESTful API built with **Express.js** and **Sequelize ORM** for **MySQL**. Includes full CRUD for users, environment configuration, and database health checks.
+A simple RESTful API built with **Express.js**, **Sequelize ORM**, and **MySQL**. Includes full CRUD for users, database health checks, and interactive Swagger API documentation.
 
 ---
 
@@ -10,6 +10,7 @@ A simple RESTful API built with **Express.js** and **Sequelize ORM** for **MySQL
 * [⚙️ Installation](#-installation)
 * [🛠️ Configuration](#-configuration)
 * [▶️ Usage](#-usage)
+* [📄 API Documentation](#-api-documentation)
 * [📡 API Endpoints](#-api-endpoints)
 * [📁 Project Structure](#-project-structure)
 * [⚠️ Error Handling](#-error-handling)
@@ -20,11 +21,12 @@ A simple RESTful API built with **Express.js** and **Sequelize ORM** for **MySQL
 ## ✨ Features
 
 * Express.js server with JSON body parsing
-* Sequelize ORM integration with MySQL
-* Full CRUD for users using models
-* Health check endpoint with raw SQL or `.authenticate()`
+* Sequelize ORM with MySQL support
+* Full CRUD operations for users
+* Health check endpoint
 * Environment-based configuration via `.env`
-* Graceful shutdown and connection cleanup
+* Interactive API documentation via Swagger (OpenAPI 3.0)
+* Graceful shutdown and error handling
 
 ---
 
@@ -43,7 +45,7 @@ A simple RESTful API built with **Express.js** and **Sequelize ORM** for **MySQL
    npm install
    ```
 
-3. Set up the environment file:
+3. Set up the environment variables:
 
    ```bash
    cp .env.example .env
@@ -76,13 +78,23 @@ Start the server:
 npm start
 ```
 
-For development (requires `nodemon`):
+For development with hot reload (requires `nodemon`):
 
 ```bash
 npm run dev
 ```
 
-Sequelize will automatically sync the models with the database on server start.
+---
+
+## 📄 API Documentation
+
+Interactive Swagger UI is available at:
+
+```
+http://localhost:3000/api-docs
+```
+
+Generated automatically from inline JSDoc annotations in the routes.
 
 ---
 
@@ -102,7 +114,7 @@ Sequelize will automatically sync the models with the database on server start.
 
 | Method | Endpoint  | Description                |
 | ------ | --------- | -------------------------- |
-| GET    | `/health` | Check DB connection status |
+| GET    | `/health` | Check server and DB status |
 
 ---
 
@@ -110,18 +122,19 @@ Sequelize will automatically sync the models with the database on server start.
 
 ```
 project/
-├── app.js                  # Entry point
-├── .env                    # Environment config
+├── app.js                  # Main application entry
+├── .env                    # Environment configuration
 ├── config/
-│   └── sequelize.js        # Sequelize instance and init
+│   ├── sequelize.js        # Sequelize initialization
+│   └── swagger.js          # Swagger setup
 ├── models/
 │   └── User.js             # Sequelize User model
 ├── routes/
-│   ├── users.js            # CRUD routes
-│   └── health.js           # Health check
+│   ├── users.js            # User CRUD routes
+│   └── health.js           # Health check route
 ├── middleware/
-│   └── errorHandler.js     # Error handlers
-└── package.json
+│   └── errorHandler.js     # Central error handler
+├── package.json
 ```
 
 ---
